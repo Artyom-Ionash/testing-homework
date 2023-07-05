@@ -1,11 +1,9 @@
-const { assert } = require("chai");
-
-describe("Общие требования:", async function () {
+describe("Общие требования (e2e):", async function () {
   beforeEach(async function ({ browser }) {
     await this.browser.url("http://localhost:3000/hw/store/");
   });
 
-  it('на ширине меньше 576px навигационное меню должно скрываться за "гамбургер"', async function () {
+  it('1-4: на ширине меньше 576px навигационное меню должно скрываться за "гамбургер"', async function () {
     const menu = this.browser.$(".Application-Menu");
 
     await this.browser.setWindowSize(575, 1000);
@@ -14,7 +12,7 @@ describe("Общие требования:", async function () {
     expect(await menu.isDisplayed()).toBeTruthy();
   });
 
-  it('при выборе элемента из меню "гамбургера", меню должно закрываться', async function () {
+  it('1-5: при выборе элемента из меню "гамбургера", меню должно закрываться', async function () {
     await this.browser.setWindowSize(575, 1000);
     const toggler = this.browser.$(".Application-Toggler");
 

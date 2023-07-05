@@ -1,20 +1,15 @@
-import React from "react";
-
 import { within } from "@testing-library/react";
-
-import { Application } from "../../../src/client/Application";
 import { renderWithRouterAndStore } from "../utils/provider";
-import { selectElementOrEmpty } from "../utils/html";
-import { storeBuilder } from "../mock/store";
+import { selectElementOrEmpty } from "../utils/htmlSelect";
 
 describe("Общие требования:", () => {
   let rendered: ReturnType<typeof renderWithRouterAndStore>;
 
   beforeEach(() => {
-    rendered = renderWithRouterAndStore(<Application />, storeBuilder());
+    rendered = renderWithRouterAndStore("/");
   });
 
-  it("в шапке отображаются ссылки на страницы магазина, а также ссылка на корзину", () => {
+  it("1-2: в шапке отображаются ссылки на страницы магазина, а также ссылка на корзину", () => {
     const navigation = rendered.getByRole("navigation");
     const navbar = selectElementOrEmpty(navigation, ".navbar-nav");
 
@@ -28,7 +23,7 @@ describe("Общие требования:", () => {
     ).toBeTruthy();
   });
 
-  it("название магазина в шапке должно быть ссылкой на главную страницу", () => {
+  it("1-3: название магазина в шапке должно быть ссылкой на главную страницу", () => {
     const link = rendered
       .getByRole("link", { name: "Example store" })
       .getAttribute("href");

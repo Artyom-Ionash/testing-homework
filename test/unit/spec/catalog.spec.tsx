@@ -1,19 +1,15 @@
-import React from "react";
-
-import { Catalog } from "../../../src/client/pages/Catalog";
+import { FAKE_PRODUCTS } from "../utils/stubs/exampleApiStub";
 import { renderWithRouterAndStore } from "../utils/provider";
-import { selectElementOrEmpty } from "../utils/html";
-import { storeBuilder } from "../mock/store";
-import { FAKE_PRODUCTS } from "../mock/api";
+import { selectElementOrEmpty } from "../utils/htmlSelect";
 
 describe("Каталог:", () => {
   let rendered: ReturnType<typeof renderWithRouterAndStore>;
 
   beforeEach(() => {
-    rendered = renderWithRouterAndStore(<Catalog />, storeBuilder());
+    rendered = renderWithRouterAndStore("/catalog");
   });
 
-  it("в каталоге должны отображаться товары, список которых приходит с сервера", async () => {
+  it("3-1: в каталоге должны отображаться товары, список которых приходит с сервера", async () => {
     const pConditions = FAKE_PRODUCTS.map((product) => {
       let elements: HTMLElement[];
       try {

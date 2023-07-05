@@ -1,13 +1,13 @@
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 
-import { ExampleApi } from "../../../src/client/api";
+import { ExampleApi } from "../../../../src/client/api";
 import {
   ProductShortInfo,
   Product,
   CheckoutFormData,
   CartState,
   CheckoutResponse,
-} from "../../../src/common/types";
+} from "../../../../src/common/types";
 
 const okResponse = {
   status: 200,
@@ -27,7 +27,7 @@ export const FAKE_PRODUCTS: Product[] = Array(30)
     color: `p-c-${i + 1}`,
   }));
 
-export class ExampleApiMock extends ExampleApi {
+export class ExampleApiStub extends ExampleApi {
   constructor(basename: string) {
     super(basename);
   }
@@ -57,9 +57,6 @@ export class ExampleApiMock extends ExampleApi {
     form: CheckoutFormData,
     cart: CartState
   ): Promise<AxiosResponse<CheckoutResponse>> {
-    return Promise.resolve({
-      ...okResponse,
-      data: { id: 123 },
-    });
+    throw new Error();
   }
 }
