@@ -1,4 +1,8 @@
 describe("Корзина (e2e):", async function () {
+  beforeEach(async function () {
+    await this.browser.url("http://localhost:3000/hw/store");
+  });
+
   it("4-1: в шапке рядом со ссылкой на корзину должно отображаться количество не повторяющихся товаров в ней", async function () {
     await this.browser.url("http://localhost:3000/hw/store/catalog");
     const links = await this.browser.$$(".ProductItem-DetailsLink");

@@ -1,4 +1,8 @@
 describe("Каталог (e2e):", async function () {
+  beforeEach(async function () {
+    await this.browser.url("http://localhost:3000/hw/store");
+  });
+
   it('3-5: если товар уже добавлен в корзину, повторное нажатие кнопки "добавить в корзину" должно увеличивать его количество', async function () {
     await this.browser.url("http://localhost:3000/hw/store/catalog/0");
     const button = this.browser.$(".ProductDetails-AddToCart");

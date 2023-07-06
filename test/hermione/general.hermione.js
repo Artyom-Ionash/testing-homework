@@ -1,6 +1,6 @@
 describe("Общие требования (e2e):", async function () {
-  beforeEach(async function ({ browser }) {
-    await this.browser.url("http://localhost:3000/hw/store/");
+  beforeEach(async function () {
+    await this.browser.url("http://localhost:3000/hw/store");
   });
 
   it('1-4: на ширине меньше 576px навигационное меню должно скрываться за "гамбургер"', async function () {

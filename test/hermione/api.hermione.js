@@ -1,6 +1,10 @@
 const axios = require("axios");
 
 describe("API (e2e):", async function () {
+  beforeEach(async function () {
+    await this.browser.url("http://localhost:3000/hw/store");
+  });
+
   it("дополнительно: api/products возвращает корректные данные", async function () {
     const { data } = await axios.get(
       "http://localhost:3000/hw/store/api/products"
