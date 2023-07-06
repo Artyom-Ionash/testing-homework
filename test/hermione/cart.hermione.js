@@ -9,8 +9,10 @@ describe("Корзина (e2e):", async function () {
     const refs = await Promise.all(links.map((x) => x.getAttribute("href")));
     for (const ref of refs) {
       await this.browser.url(`http://localhost:3000${ref}`);
-      const button = await this.browser.$(".ProductDetails-AddToCart");
-      await button.click();
+      const addButton = await this.browser.$(".ProductDetails-AddToCart");
+      const isExists = await addButton.waitForExist({ timeout: 1000 });
+      expect(isExists).toBeTruthy();
+      await addButton.click();
     }
 
     const text = await (
@@ -22,7 +24,9 @@ describe("Корзина (e2e):", async function () {
 
   it("4-дополнительно: после подтверждения заказа должно быть уведомление об успехе операции", async function () {
     await this.browser.url("http://localhost:3000/hw/store/catalog/1");
-    const addButton = this.browser.$(".ProductDetails-AddToCart");
+    const addButton = await this.browser.$(".ProductDetails-AddToCart");
+    const isExists = await addButton.waitForExist({ timeout: 1000 });
+    expect(isExists).toBeTruthy();
     await addButton.click();
     await this.browser.url("http://localhost:3000/hw/store/cart");
 
