@@ -12,7 +12,7 @@ describe("Корзина (e2e):", async function () {
     const text = await (
       await this.browser.$(".Application-Menu .nav-link:last-child")
     ).getText();
-    const [value] = text.match(/\d+/);
+    const [value] = text.match(/\d+/) ?? [""];
     expect(value).toEqual("27");
   });
 });
