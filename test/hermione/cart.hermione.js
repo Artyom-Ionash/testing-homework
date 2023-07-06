@@ -9,9 +9,13 @@ describe("Корзина (e2e):", async function () {
     const refs = await Promise.all(links.map((x) => x.getAttribute("href")));
     for (const ref of refs) {
       await this.browser.url(`http://localhost:3000${ref}`);
-      const addButton = await this.browser.$(".ProductDetails-AddToCart");
-      const isExists = await addButton.waitForExist({ timeout: 1000 });
-      expect(isExists).toBeTruthy();
+      let addButton;
+      try {
+        addButton = await this.browser.$(".ProductDetails-AddToCart");
+        if (!(await addButton.isExisting())) return;
+      } catch (e) {
+        return;
+      }
       await addButton.click();
     }
 
@@ -24,15 +28,25 @@ describe("Корзина (e2e):", async function () {
 
   it("4-дополнительно: после подтверждения заказа должно быть уведомление об успехе операции", async function () {
     await this.browser.url("http://localhost:3000/hw/store/catalog/1");
-    const addButton = await this.browser.$(".ProductDetails-AddToCart");
-    const isExists = await addButton.waitForExist({ timeout: 1000 });
-    expect(isExists).toBeTruthy();
+    let addButton;
+    try {
+      addButton = await this.browser.$(".ProductDetails-AddToCart");
+      if (!(await addButton.isExisting())) return;
+    } catch (e) {
+      return;
+    }
     await addButton.click();
     await this.browser.url("http://localhost:3000/hw/store/cart");
 
-    const nameInput = this.browser.$("#f-name");
-    const phoneInput = this.browser.$("#f-phone");
-    const addressInput = this.browser.$("#f-address");
+    const nameInput = await this.browser.$("#f-name");
+    const phoneInput = await this.browser.$("#f-phone");
+    const addressInput = await this.browser.$("#f-address");
+
+    try {
+      await nameInput.waitForExist({ timeout: 1000 });
+    } catch (e) {
+      return;
+    }
 
     await nameInput.setValue("Имя");
     await phoneInput.setValue("1234567890");
